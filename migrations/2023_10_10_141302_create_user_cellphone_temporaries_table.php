@@ -16,8 +16,7 @@ class CreateUserCellphoneTemporariesTable extends Migration
         Schema::create('user_cellphone_temporaries', function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->constrained();
-            $table->string("cellphone");
-            $table->foreignId("cellphone_notification_task_id")->default(0);
+            $table->string("cellphone", 18);
             $table->enum("status", ["WAITING", "VERIFIED"])->default("WAITING");
             $table->string("verify_code", 8);
             $table->dateTime("expired_at");

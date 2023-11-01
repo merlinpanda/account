@@ -15,7 +15,13 @@ class CreateUserEmailsTable extends Migration
     {
         Schema::create('user_emails', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("user_id")->constrained();
+            $table->string("email")->unique();
+            $table->boolean("notify")->default(true);
+            $table->enum("priority", ["NORMAL", "PRIMARY"])->default("NORMAL");
+            $table->timestamp("email_verified_at")->nullable()->default(null);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

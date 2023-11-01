@@ -17,10 +17,9 @@ class CreateUserEmailTemporariesTable extends Migration
             $table->id();
             $table->foreignId("user_id")->constrained();
             $table->string("email");
-            $table->foreignId("email_notification_task_id")->index("user_email_temp_notify_task_id")->nullable();
             $table->enum("status", ["WAITING", "VERIFIED"])->default("WAITING");
             $table->dateTime("expired_at");
-            $table->rememberToken();
+            $table->string("token");
             $table->timestamps();
             $table->softDeletes();
         });
