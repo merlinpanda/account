@@ -24,9 +24,6 @@
         "merlinpanda/rbac": "^0.2.3",
         "nesbot/carbon": "^2.67",
         "propaganistas/laravel-phone": "^4.4",
-        "symfony/http-foundation": "^6.3",
-        "symfony/http-kernel": "^6.2",
-        "symfony/routing": "^6.2",
         "tymon/jwt-auth": "^1.0"
     },
     "extra": {
