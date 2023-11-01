@@ -2,6 +2,8 @@
 
 namespace Merlinpanda\Account\Models;
 
+use Merlinpanda\Rbac\Models\App;
+use Merlinpanda\Rbac\Models\AppUser;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -32,6 +34,16 @@ class User extends Authenticatable implements JWTSubject, AbnormalUser
     public function getJWTCustomClaims(): array
     {
         return [];
+    }
+
+    public function appUser()
+    {
+        return $this->hasMany(AppUser::class);
+    }
+
+    public function apps()
+    {
+        return $this->hasManyThrough(App::class, AppUser::class);
     }
 
     /**
