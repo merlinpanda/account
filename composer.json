@@ -1,0 +1,39 @@
+{
+    "name": "merlinpanda/account",
+    "description": "account",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Merlinpanda\\Account\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Salva Cheung",
+            "email": "salva.cheung@outlook.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^7.3|^8.0",
+        "illuminate/database": "^8.0",
+        "illuminate/http": "^8.0",
+        "illuminate/support": "^8.0",
+        "merlinpanda/rbac": "^0.2.3",
+        "nesbot/carbon": "^2.67",
+        "propaganistas/laravel-phone": "^4.4",
+        "symfony/http-foundation": "^6.3",
+        "symfony/http-kernel": "^6.2",
+        "symfony/routing": "^6.2",
+        "tymon/jwt-auth": "^1.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Merlinpanda\\Account\\AccountServiceProvider"
+            ]
+        }
+    }
+}
