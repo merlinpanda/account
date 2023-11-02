@@ -1,6 +1,6 @@
 <?php
 
-namespace Merlinpanda\Account\Actions;
+namespace Merlinpanda\Account\Actions\Login;
 
 class AppScanLogin
 {

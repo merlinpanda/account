@@ -1,6 +1,6 @@
 <?php
 
-namespace Merlinpanda\Account\Actions\CodeLogin;
+namespace Merlinpanda\Account\Actions\Login;
 
 class CodeLogin
 {

@@ -1,22 +1,18 @@
 <?php
 
-namespace Merlinpanda\Account\Actions;
+namespace Merlinpanda\Account\Actions\Login;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\DB;
 use Merlinpanda\Account\Models\User;
 use Merlinpanda\Account\Models\UserCellphone;
 use Merlinpanda\Account\Models\UserEmail;
-use Merlinpanda\Account\Contracts\AbnormalLogin;
-use Merlinpanda\Account\Contracts\LoginAction;
-use Merlinpanda\Account\Exceptions\AbnormalLoginException;
 use Merlinpanda\Account\Exceptions\AccountOrPasswordNotMatchException;
 use Illuminate\Support\Facades\Hash;
 use Merlinpanda\Rbac\Exceptions\AccessDeniedException;
 use Merlinpanda\Rbac\Rbac;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 
-class PasswordLogin extends LoginAction implements AbnormalLogin
+class PasswordLogin
 {
     const METHOD_EMAIL = "EMAIL";
 
@@ -35,10 +31,15 @@ class PasswordLogin extends LoginAction implements AbnormalLogin
      * @param string $method
      * @param string $account
      * @param string $password
-     * @return string
-     * @throws AbnormalLoginException
+     * @param string $app_key
+     * @return User
      */
-    public function handle(string $method, string $account, string $password, string $app_key, array $claims = []): string
+    public function handle(
+        string $method,
+        string $account,
+        string $password,
+        string $app_key
+    ): User
     {
         $user_id = $this->fetchUserId($method, $account);
 
@@ -55,19 +56,8 @@ class PasswordLogin extends LoginAction implements AbnormalLogin
             throw new AccessDeniedException();
         }
 
-        /**
-         * 检查是否异常登录
-         * 如果出现异常，应改为验证码登录
-         */
-        $this->isAbnormalLogin($user);
-
-        $this->extraVerify($user);
-
         if (Hash::check($password, $user->password)) {
-            $claims["role_value"] = $user_role_value;
-            $token = auth('api')->claims($claims)->login($user);
-
-            return $this->formatToken($token);
+            return $user;
         }
 
         throw new AccountOrPasswordNotMatchException(__('account::account.failed.password', [
@@ -75,7 +65,14 @@ class PasswordLogin extends LoginAction implements AbnormalLogin
         ]));
     }
 
-    private function fetchUserId($method, $account)
+    /**
+     * 获取用户ID
+     *
+     * @param $method
+     * @param $account
+     * @return mixed
+     */
+    public function fetchUserId($method, $account)
     {
         $method = strtoupper($method);
 
@@ -95,43 +92,5 @@ class PasswordLogin extends LoginAction implements AbnormalLogin
                 'attribute' => strtolower($method)
             ]));
         }
-    }
-
-    /**
-     * 自定义其他认证
-     *
-     * @return void
-     */
-    public function extraVerify($user)
-    {
-        // Other verify
-    }
-
-    /**
-     * 是否异常
-     *
-     * @param User $user
-     * @return bool
-     * @throws AbnormalLoginException
-     */
-    public function isAbnormalLogin(User $user): bool
-    {
-        if (!isset($user->id)) {
-            throw new AbnormalLoginException(__('account::account.disabled'));
-        }
-
-        if ($user->isLongTimeNotLogin()) {
-            throw new AbnormalLoginException(__('account::account.abnormal.long_time'));
-        }
-
-        if ($user->isNewClientLogin()) {
-            throw new AbnormalLoginException(__('account::account.abnormal.new_client'));
-        }
-
-        if ($user->isEmergencyArea()) {
-            throw new AbnormalLoginException(__('account::account.abnormal.emergency_area'));
-        }
-
-        return true;
     }
 }

@@ -8,9 +8,8 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Merlinpanda\Account\Contracts\AbnormalUser;
 
-class User extends Authenticatable implements JWTSubject, AbnormalUser
+class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
 
@@ -44,45 +43,5 @@ class User extends Authenticatable implements JWTSubject, AbnormalUser
     public function apps()
     {
         return $this->hasManyThrough(App::class, AppUser::class);
-    }
-
-    /**
-     * 没有绑定账号
-     *
-     * @return bool
-     */
-    public function doesNotHaveAccount(): bool
-    {
-        return false;
-    }
-
-    /**
-     * 是否长时间未登录
-     *
-     * @return bool
-     */
-    public function isLongTimeNotLogin(): bool
-    {
-        return false;
-    }
-
-    /**
-     * 新客户端登录
-     *
-     * @return bool
-     */
-    public function isNewClientLogin(): bool
-    {
-        return false;
-    }
-
-    /**
-     * 不是常在地区
-     *
-     * @return bool
-     */
-    public function isEmergencyArea(): bool
-    {
-        return false;
     }
 }

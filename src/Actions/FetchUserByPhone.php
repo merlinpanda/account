@@ -1,6 +1,6 @@
 <?php
 
-namespace Merlinpanda\Account\Actions\User;
+namespace Merlinpanda\Account\Actions;
 
 use Merlinpanda\Account\Models\UserCellphone;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Merlinpanda\Account\Actions;
+namespace Merlinpanda\Account\Actions\User;
 
 use Merlinpanda\Account\Models\User;
 
