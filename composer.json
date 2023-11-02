@@ -22,7 +22,7 @@
         "illuminate/http": "^8.0",
         "illuminate/support": "^8.0",
         "merlinpanda/rbac": "^0.2.4",
-        "nesbot/carbon": "^2.67",
+        "nesbot/carbon": "^2.66",
         "propaganistas/laravel-phone": "^4.4",
         "tymon/jwt-auth": "^1.0"
     },
