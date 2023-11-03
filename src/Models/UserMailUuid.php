@@ -9,6 +9,10 @@ class UserMailUuid extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "html", "email", "subject", "user_id", "uuid"
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
