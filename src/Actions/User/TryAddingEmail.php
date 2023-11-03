@@ -32,22 +32,23 @@ class TryAddingEmail
         $this->emailIsOccupied($email);
 
         // 生成校验token
-        $token = Hash::make($this->generateKey($user->id, $email));
+        $token = sha1($this->generateKey($user->id, $email));
 
         // 生成校验链接
         $check_url = $this->generateVerifyUrl($user, $email, $token, $base_url);
 
         // 存储校验信息
+        $expired_at = Carbon::now()->addMinutes(self::TOKEN_EXPIRED_TIMELONG);
         $user_temporary_email = new UserEmailTemporary();
         $user_temporary_email->user_id = $user->id;
         $user_temporary_email->email = $email;
         $user_temporary_email->token = $token;
-        $user_temporary_email->expired_at = Carbon::now()->addMinutes(self::TOKEN_EXPIRED_TIMELONG);
+        $user_temporary_email->expired_at = $expired_at;
         $user_temporary_email->save();
 
         // 生成邮件内容UUID
         $uuid = Str::uuid();
-        $mailer = new AddTemporaryEmail($user, $email, self::TOKEN_EXPIRED_TIMELONG, $check_url, $uuid);
+        $mailer = new AddTemporaryEmail($user, $email, $expired_at->toDateTimeString(), $check_url, $uuid);
 
         // 渲染邮件内容并存储UUID
         $html = $mailer->render();
