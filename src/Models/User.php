@@ -44,4 +44,14 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasManyThrough(App::class, AppUser::class);
     }
+
+    public function firstNameWithPrefix()
+    {
+        return $this->first_name . "先生/女士";
+    }
+
+    public function mailUUIDs()
+    {
+        return $this->hasMany(UserMailUuid::class);
+    }
 }

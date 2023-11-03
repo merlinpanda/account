@@ -8,7 +8,7 @@ class AddEmail
 {
     public function handle(User $user,string $email)
     {
-
+        
     }
 
     public function verify($email, $token)

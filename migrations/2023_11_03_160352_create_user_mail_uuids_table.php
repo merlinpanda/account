@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserEmailTemporariesTable extends Migration
+class CreateUserMailUuidsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,14 @@ class CreateUserEmailTemporariesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_email_temporaries', function (Blueprint $table) {
+        Schema::create('user_mail_uuids', function (Blueprint $table) {
             $table->id();
+            $table->string("uuid")->unique();
             $table->foreignId("user_id")->constrained();
+            $table->string("subject");
             $table->string("email");
-            $table->enum("status", ["WAITING", "VERIFIED"])->default("WAITING");
-            $table->dateTime("expired_at");
-            $table->dateTime("verified_at")->nullable()->default(null);
-            $table->string("token");
+            $table->text("html");
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -33,6 +31,6 @@ class CreateUserEmailTemporariesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_email_temporaries');
+        Schema::dropIfExists('user_mail_uuids');
     }
 }
