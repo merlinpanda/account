@@ -10,4 +10,9 @@ class AddEmail
     {
 
     }
+
+    public function verify($email, $token)
+    {
+
+    }
 }

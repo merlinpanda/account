@@ -2,14 +2,19 @@
 
 namespace Merlinpanda\Account\Actions;
 
-class SendLoginCode
+class SendVerifyCode
 {
     /**
      * 发送验证码
      *
      * @return void
      */
-    public function handle()
+    public function send()
+    {
+
+    }
+
+    public function verify()
     {
 
     }
