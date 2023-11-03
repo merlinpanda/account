@@ -38,7 +38,7 @@ class AddTemporaryEmail extends Mailable
         $this->url = $url;
         $this->uuid = $uuid;
 
-        $this->subject = __("account::mail.add_temporary_email");
+        $this->subject = __("account::mail.subjects.add_temporary_email");
     }
 
     /**
