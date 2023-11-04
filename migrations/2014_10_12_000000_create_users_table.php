@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->string("fax")->nullable()->default(null)->comment("传真");
             $table->string('last_login_ip')->default(null)->nullable()->comment('最后登录的IP');
             $table->dateTime("last_login_at")->nullable()->default(null);
-            $table->enum("status", ['NORMAL', 'DISABLED'])->default("NORMAL");
+            $table->enum("status", ['ACTIVE', 'INACTIVE', 'DISABLED'])->default("ACTIVE");
             $table->dateTime("disabled_expired_at")->nullable()->default(null)->comment("禁用过期时间");
             $table->rememberToken();
             $table->timestamps();

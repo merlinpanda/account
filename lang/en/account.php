@@ -14,5 +14,6 @@ return [
         "long_time" => "You haven't logged in for a long time.",
         "new_client" => "You are logging in using a new device.",
         "emergency_area" => "You are logging in to a new area.",
-    ]
+    ],
+    'frequent_operations' => "Frequent operations, please try again later"
 ];

@@ -1,18 +1,29 @@
-- 多平台登录
-- 账号密码登录
-- 账号权限
+
+更改User Model
+```
+namespace App\Models;
+
+use Merlinpanda\Account\Models\User as AccountUser;
+
+class User extends AccountUser {
+    // ...
+}
+```
 
 
-- 登录日志
-  - 国家
-  - 省
-  - 市/区
-  - ip
-  - 登录时间
-  - 登录设备
-  - fingerprint
+## 登录
+
+### 登录前
+
+### 登录中
+
+### 登录后
+#### Actions
+生成token BuildJwtToken
+
+#### Event
+触发OnFinishedLogin
+
+- （仅当异常登录成功时）发送登录邮件
 
 
-- v0.2 异常登录检测
-  - 非常用设备 
-  - 非常在地区

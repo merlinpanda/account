@@ -49,7 +49,7 @@ class AddTemporaryEmail extends Mailable
     public function build()
     {
         return $this->view('account::emails.auth.temporary_email')->with([
-            'username' => $this->user->firstNameWithPrefix(),
+            'username' => $this->user->lastNameWithPrefix(),
             'email' => $this->email,
             'valid_time' => $this->valid_time,
             'url' => $this->url,
