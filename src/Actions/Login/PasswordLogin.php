@@ -29,7 +29,7 @@ class PasswordLogin extends AbstractAccountLogin
         $user_id = $this->fetchUserIdByAccount($method, $account);
 
         try{
-            $user = User::where(['id' => $user_id, 'status' => 'ACTIVE'])->firstOrFail();
+            $user = User::where(['id' => $user_id, 'status' => User::STATUS_NORMAL])->firstOrFail();
         }catch (ModelNotFoundException $e) {
             throw new AccountOrPasswordNotMatchException(__('account::account.failed.password', [
                 'attribute' => strtolower($method)

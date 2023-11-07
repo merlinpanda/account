@@ -13,6 +13,8 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
 
+    const STATUS_NORMAL = "NORMAL";
+
     protected $hidden = ["password"];
 
     /**
